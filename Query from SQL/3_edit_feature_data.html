@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+                                                             
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>ArcGIS JavaScript Tutorials: Edit feature data </title>
+  <style>
+    html, body, #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+  <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.26/"></script>
+  <script>
+
+    require([
+      "esri/config",
+      "esri/Map",
+      "esri/views/MapView",
+
+      "esri/layers/FeatureLayer",
+      "esri/widgets/Editor"
+
+    ], function(esriConfig, Map, MapView, FeatureLayer, Editor) {
+
+      // Reference a feature layer to edit
+      const myPointsFeatureLayer = new FeatureLayer({
+        url: "https://services3.arcgis.com/<YOUR ID>/arcgis/rest/services/my_points/FeatureServer"
+      });
+
+      esriConfig.apiKey = "AAPK06129811e5aa43febfee6dbbf3778e52WXC2iWgAF8dWNz2F3nr7l1CfQcJhdZLooCZp3dWPrjp6FMmxav-nFv7kI9jZ1ApG";
+
+      const map = new Map({
+        basemap: "arcgis-topographic", // Basemap layer service
+
+        layers: [myPointsFeatureLayer]
+
+      });
+
+      const view = new MapView({
+        container: "viewDiv",
+        map: map,
+        center: [-118.80543,34.02700],
+        zoom: 13
+      });
+
+      // Editor widget
+      const editor = new Editor({
+        view: view
+      });
+      // Add widget to the view
+      view.ui.add(editor, "top-right");
+
+    });
+  </script>
+</head>
+<body>
+  <div id="viewDiv"></div>
+</body>
+</html>

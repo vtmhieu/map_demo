@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>ArcGIS Maps SDK for JavaScript Tutorials: Add a styled basemap layer</title>
+  <style>
+    html, body, #viewDiv {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+  </style>  <link rel="stylesheet" href="https://js.arcgis.com/4.26/esri/themes/light/main.css">
+  <script src="https://js.arcgis.com/4.26/"></script>
+  <script>
+
+  require([
+    "esri/config",
+    "esri/Map",
+    "esri/views/MapView",
+
+    "esri/Basemap",
+    "esri/layers/VectorTileLayer",
+    "esri/layers/TileLayer",
+
+  ], function(esriConfig, Map, MapView, Basemap, VectorTileLayer, TileLayer) {
+
+    esriConfig.apiKey = "AAPK06129811e5aa43febfee6dbbf3778e52WXC2iWgAF8dWNz2F3nr7l1CfQcJhdZLooCZp3dWPrjp6FMmxav-nFv7kI9jZ1ApG";
+
+  const vectorTileLayer = new VectorTileLayer({
+    portalItem: {
+      id: "d2ff12395aeb45998c1b154e25d680e5" // Forest and Parks Canvas
+    },
+    opacity: .75
+  });
+
+  const imageTileLayer = new TileLayer({
+    portalItem: {
+      id: "1b243539f4514b6ba35e7d995890db1d" // World Hillshade
+    }
+  });
+
+  const basemap = new Basemap({
+    baseLayers: [
+
+      imageTileLayer,
+      vectorTileLayer
+
+    ]
+  });
+
+// const apikey = YOUR_API_KEY ;
+  const map = new Map({
+    basemap: basemap,
+  });
+
+  const view = new MapView({
+    container: "viewDiv",
+    map: map,
+
+    center: [-100,40],
+    zoom: 3
+
+  });
+
+  });
+  </script>
+</head>
+<body>
+  <div id="viewDiv"></div>
+</body>
+</html>
